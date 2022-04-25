@@ -1,29 +1,21 @@
 #Projeto 1 - Ouvidoria ABC
-#Uma manifestação pode ser uma sugestão, reclamação ou elogio e sempre tem um código
-#(protocolo, também conhecido por ID), nome do aluno requisitante,
-#tipo (sugestão, reclamação ou elogio) e a descrição da manifestação.
 listaProtocolos = []
+listaProtocolosArmazenar = []
+listaProtocolosExibir = []
 manifestacao = []
+listaManifestacaoExibir = []
 listaReclamacao = []
 listaSugestao = []
 listaElogio = []
 tipo = 0
 manifestacaoQuebrada = []
-print('===========================')
-print('Ouvidoria Universidade ABC')
-print('===========================')
-#lendo a variável opcao, que irá direcionar o usuário de acordo com a ação escolhida no menu
-opcao = int(input('1 - Listar todas as manifestações \n'
-      '2 - Listar todas as sugestões \n'
-      '3 - Listar todas as reclamações \n'
-      '4 - Listar todos os elogios \n'
-      '5 - Enviar uma nova manifestação \n'
-      '6 - Pesquisar protocolo por número (ID)\n'
-      '7 - Sair'
-      '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-#certificando que o usuário digite uma opção válida, entre 1 e 7
-while opcao < 1 or opcao > 7:
-    print('\nEntrada inválida!')
+acharProtocolo = []
+opcao = 0
+while opcao != 7:
+    print('===========================')
+    print('Ouvidoria Universidade ABC')
+    print('===========================')
+    # lendo a variável opcao, que irá direcionar o usuário de acordo com a ação escolhida no menu
     opcao = int(input('1 - Listar todas as manifestações \n'
                       '2 - Listar todas as sugestões \n'
                       '3 - Listar todas as reclamações \n'
@@ -32,7 +24,58 @@ while opcao < 1 or opcao > 7:
                       '6 - Pesquisar protocolo por número (ID)\n'
                       '7 - Sair'
                       '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-while opcao != 7:
+    # certificando que o usuário digite uma opção válida, entre 1 e 7
+    while opcao < 1 or opcao > 7:
+        print('\nEntrada inválida!')
+        opcao = int(input('1 - Listar todas as manifestações \n'
+                          '2 - Listar todas as sugestões \n'
+                          '3 - Listar todas as reclamações \n'
+                          '4 - Listar todos os elogios \n'
+                          '5 - Enviar uma nova manifestação \n'
+                          '6 - Pesquisar protocolo por número (ID)\n'
+                          '7 - Sair'
+                          '\nDigite um número de 1 a 7 para a ação desejada:\n'))
+
+    #Menu: 1 -  Listar todas as manifestações
+    if opcao == 1:
+        print('---------------------------------')
+        print('Lista com todas as manifestações: ')
+        print('---------------------------------\n')
+        for i in range(len(listaProtocolosArmazenar)):
+            print(listaProtocolosArmazenar[i])
+        if len(listaProtocolosArmazenar) == 0:
+            print("Ainda não foram registradas manifestações. Digite a opção 5 no menu principal para enviar uma nova manifestação!\n")
+
+    #Menu: 2 -  Listar todas as sugestões
+    if opcao == 2:
+        print('-----------------------------')
+        print('Lista com todas as sugestões:')
+        print('-----------------------------\n')
+        for i in range(len(listaSugestao)):
+            print(listaSugestao[i])
+        if len(listaSugestao) == 0:
+            print("Ainda não foram registradas sugestões. Digite a opção 5 no menu principal para enviar uma sugestão!\n")
+
+    #Menu: 3 -  Listar todas as reclamações
+    if opcao == 3:
+        print('-------------------------------')
+        print('Lista com todas as reclamações:')
+        print('-------------------------------\n')
+        for i in range(len(listaReclamacao)):
+            print(listaReclamacao[i])
+        if len(listaReclamacao) == 0:
+            print("Ainda não foram registradas reclamações. Digite a opção 5 no menu principal para enviar uma reclamação!\n")
+
+    #Menu: 4 -  Listar todos os elogios
+    if opcao == 4:
+        print('---------------------------')
+        print('Lista com todos os elogios:')
+        print('---------------------------\n')
+        for i in range(len(listaElogio)):
+            print(listaElogio[i])
+        if len(listaElogio) == 0:
+            print("Ainda não foram registrados elogios. Digite a opção 5 no menu principal para enviar um elogio!\n")
+
     #Menu: 5 - Criar uma nova manifestação
     if opcao == 5:
         nome = input('Digite o nome do requisitante: ')
@@ -58,210 +101,40 @@ while opcao != 7:
 
         protocolo = len(listaProtocolos) + 1
         protocoloStr = str(protocolo)
+        acharProtocolo.append(protocoloStr)
         manifestacao = protocoloStr + '#' + nome + '#' + tipo + '#' + descricao
         manifestacaoQuebrada = manifestacao.split('#')
         listaProtocolos.append(manifestacaoQuebrada)
+
+        listaProtocolosExibir = 'ID do protocolo: ' + protocoloStr + ' - Requisitante: ' + nome + ' - Tipo: ' + tipo + ' - Descrição: ' + descricao
+        listaProtocolosArmazenar.append(listaProtocolosExibir)
+        listaManifestacaoExibir = 'ID do protocolo: ' + protocoloStr + ' - Requisitante: ' + nome + ' - Descrição: ' + descricao
+
         if tipo == 'Reclamação':
-            listaReclamacao.append(manifestacaoQuebrada)
-        if tipo == 'Sugestão':
-            listaSugestao.append(manifestacaoQuebrada)
-        if tipo == 'Elogio':
-            listaElogio.append(manifestacaoQuebrada)
-        #menu
-        print('===========================')
-        print('Ouvidoria Universidade ABC')
-        print('===========================')
-        opcao = int(input('1 - Listar todas as manifestações \n'
-                          '2 - Listar todas as sugestões \n'
-                          '3 - Listar todas as reclamações \n'
-                          '4 - Listar todos os elogios \n'
-                          '5 - Enviar uma nova manifestação \n'
-                          '6 - Pesquisar protocolo por número (ID)\n'
-                          '7 - Sair'
-                          '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-        # certificando que o usuário digite uma opção válida, entre 1 e 7
-        while opcao < 1 or opcao > 7:
-            print('\nEntrada inválida!')
-            opcao = int(input('1 - Listar todas as manifestações \n'
-                              '2 - Listar todas as sugestões \n'
-                              '3 - Listar todas as reclamações \n'
-                              '4 - Listar todos os elogios \n'
-                              '5 - Enviar uma nova manifestação \n'
-                              '6 - Pesquisar protocolo por número (ID)\n'
-                              '7 - Sair'
-                              '\nDigite um número de 1 a 7 para a ação desejada:\n'))
+            listaReclamacao.append(listaManifestacaoExibir)
+        elif tipo == 'Sugestão':
+            listaSugestao.append(listaManifestacaoExibir)
+        elif tipo == 'Elogio':
+            listaElogio.append(listaManifestacaoExibir)
 
-    # Listar todas as manifestações
-    if opcao == 1:
-        print('---------------------------------')
-        print('Lista com todas as manifestações: ')
-        print('---------------------------------')
-        for i in range(len(listaProtocolos)):
-            print(listaProtocolos[i])
-        if len(listaProtocolos) == 0:
-            print("Ainda não foram registradas manifestações. Digite a opção 5 no menu principal para enviar uma nova manifestação!")
-        #menu
-        print()
-        print('===========================')
-        print('Ouvidoria Universidade ABC')
-        print('===========================')
-        opcao = int(input('1 - Listar todas as manifestações \n'
-                          '2 - Listar todas as sugestões \n'
-                          '3 - Listar todas as reclamações \n'
-                          '4 - Listar todos os elogios \n'
-                          '5 - Enviar uma nova manifestação \n'
-                          '6 - Pesquisar protocolo por número (ID)\n'
-                          '7 - Sair'
-                          '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-        # certificando que o usuário digite uma opção válida, entre 1 e 7
-        while opcao < 1 or opcao > 7:
-            print('\nEntrada inválida!')
-            opcao = int(input('1 - Listar todas as manifestações \n'
-                              '2 - Listar todas as sugestões \n'
-                              '3 - Listar todas as reclamações \n'
-                              '4 - Listar todos os elogios \n'
-                              '5 - Enviar uma nova manifestação \n'
-                              '6 - Pesquisar protocolo por número (ID)\n'
-                              '7 - Sair'
-                              '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-
-    # Listar todas as sugestões
-    if opcao == 2:
-        if tipo == 'Sugestão':
-            print('-----------------------------')
-            print('Lista com todas as sugestões:')
-            print('-----------------------------')
-            for i in range(len(listaSugestao)):
-                print(listaSugestao[i])
-        if len(listaSugestao) == 0:
-            print("Ainda não foram registradas sugestões. Digite a opção 5 no menu principal para enviar uma sugestão!")
-        # menu
-        print()
-        print('===========================')
-        print('Ouvidoria Universidade ABC')
-        print('===========================')
-        opcao = int(input('1 - Listar todas as manifestações \n'
-                          '2 - Listar todas as sugestões \n'
-                          '3 - Listar todas as reclamações \n'
-                          '4 - Listar todos os elogios \n'
-                          '5 - Enviar uma nova manifestação \n'
-                          '6 - Pesquisar protocolo por número (ID)\n'
-                          '7 - Sair'
-                          '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-        # certificando que o usuário digite uma opção válida, entre 1 e 7
-        while opcao < 1 or opcao > 7:
-            print('\nEntrada inválida!')
-            opcao = int(input('1 - Listar todas as manifestações \n'
-                              '2 - Listar todas as sugestões \n'
-                              '3 - Listar todas as reclamações \n'
-                              '4 - Listar todos os elogios \n'
-                              '5 - Enviar uma nova manifestação \n'
-                              '6 - Pesquisar protocolo por número (ID)\n'
-                              '7 - Sair'
-                              '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-
-    # Listar todas as reclamações
-    if opcao == 3:
-        if tipo == 'Reclamação':
-            print('-------------------------------')
-            print('Lista com todas as reclamações:')
-            print('-------------------------------')
-            for i in range(len(listaReclamacao)):
-                print(listaReclamacao[i])
-        if len(listaReclamacao) == 0:
-            print("Ainda não foram registradas reclamações. Digite a opção 5 no menu principal para enviar uma reclamação!")
-        # menu
-        print()
-        print('===========================')
-        print('Ouvidoria Universidade ABC')
-        print('===========================')
-        opcao = int(input('1 - Listar todas as manifestações \n'
-                          '2 - Listar todas as sugestões \n'
-                          '3 - Listar todas as reclamações \n'
-                          '4 - Listar todos os elogios \n'
-                          '5 - Enviar uma nova manifestação \n'
-                          '6 - Pesquisar protocolo por número (ID)\n'
-                          '7 - Sair'
-                          '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-        # certificando que o usuário digite uma opção válida, entre 1 e 7
-        while opcao < 1 or opcao > 7:
-            print('\nEntrada inválida!')
-            opcao = int(input('1 - Listar todas as manifestações \n'
-                              '2 - Listar todas as sugestões \n'
-                              '3 - Listar todas as reclamações \n'
-                              '4 - Listar todos os elogios \n'
-                              '5 - Enviar uma nova manifestação \n'
-                              '6 - Pesquisar protocolo por número (ID)\n'
-                              '7 - Sair'
-                              '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-    # Listar todos os elogios
-    if opcao == 4:
-        if tipo == 'Elogio':
-            print('---------------------------')
-            print('Lista com todos os elogios:')
-            print('---------------------------')
-            for i in range(len(listaElogio)):
-                print(listaElogio[i])
-        if len(listaElogio) == 0:
-            print("Ainda não foram registrados elogios. Digite a opção 5 no menu principal para enviar um elogio!")
-        # menu
-        print()
-        print('===========================')
-        print('Ouvidoria Universidade ABC')
-        print('===========================')
-        opcao = int(input('1 - Listar todas as manifestações \n'
-                          '2 - Listar todas as sugestões \n'
-                          '3 - Listar todas as reclamações \n'
-                          '4 - Listar todos os elogios \n'
-                          '5 - Enviar uma nova manifestação \n'
-                          '6 - Pesquisar protocolo por número (ID)\n'
-                          '7 - Sair'
-                          '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-        # certificando que o usuário digite uma opção válida, entre 1 e 7
-        while opcao < 1 or opcao > 7:
-            print('\nEntrada inválida!')
-            opcao = int(input('1 - Listar todas as manifestações \n'
-                              '2 - Listar todas as sugestões \n'
-                              '3 - Listar todas as reclamações \n'
-                              '4 - Listar todos os elogios \n'
-                              '5 - Enviar uma nova manifestação \n'
-                              '6 - Pesquisar protocolo por número (ID)\n'
-                              '7 - Sair'
-                              '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-
-    # Pesquisar uma manifestação pelo número do protocolo
+    #Menu: 6 -  Pesquisar uma manifestação pelo número do protocolo
     if opcao == 6:
-        protocoloDesejado = input('Informe o número do protocolo que deseja pesquisar: ')
-        protocoloDesejadoStr = str(protocoloDesejado)
-        if protocoloDesejadoStr == manifestacaoQuebrada[0]:
-            print('--------------------------')
-            print('O protocolo número {} é o:'.format(protocoloDesejado))
-            print('--------------------------')
-            print('Código: ', manifestacaoQuebrada[0])
-            print('Nome do requisitante: ', manifestacaoQuebrada[1])
-            print('Tipo de manifestação: ', manifestacaoQuebrada[2])
-            print('Descrição: ', manifestacaoQuebrada[3])
-            print()
-        else:
+        protocoloDesejado = int(input('Informe o número do protocolo que deseja pesquisar: '))
+        achou = False
+        for i in range(0, len(listaProtocolos) + 1, 1):
+            if protocoloDesejado == i + 1:
+                achou = True
+                print('--------------------------')
+                print('O protocolo número {} é o:'.format(protocoloDesejado))
+                print('--------------------------')
+                print('Código: ', listaProtocolos[i][0])
+                print('Nome do requisitante: ', listaProtocolos[i][1])
+                print('Tipo de manifestação: ', listaProtocolos[i][2])
+                print('Descrição: ', listaProtocolos[i][3])
+                print()
+                break
+
+        if not achou:
             print('------------------------------')
             print('Não há protocolos com esse ID!')
             print('------------------------------')
-        opcao = int(input('1 - Listar todas as manifestações \n'
-                          '2 - Listar todas as sugestões \n'
-                          '3 - Listar todas as reclamações \n'
-                          '4 - Listar todos os elogios \n'
-                          '5 - Enviar uma nova manifestação \n'
-                          '6 - Pesquisar protocolo por número (ID)\n'
-                          '7 - Sair'
-                          '\nDigite um número de 1 a 7 para a ação desejada:\n'))
-        # certificando que o usuário digite uma opção válida, entre 1 e 7
-        while opcao < 1 or opcao > 7:
-            print('\nEntrada inválida!')
-            opcao = int(input('1 - Listar todas as manifestações \n'
-                              '2 - Listar todas as sugestões \n'
-                              '3 - Listar todas as reclamações \n'
-                              '4 - Listar todos os elogios \n'
-                              '5 - Enviar uma nova manifestação \n'
-                              '6 - Pesquisar protocolo por número (ID)\n'
-                              '7 - Sair'
-                              '\nDigite um número de 1 a 7 para a ação desejada:\n'))
